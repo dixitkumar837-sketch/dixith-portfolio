@@ -11,7 +11,7 @@ export const LAB_EXPERIMENTS: ExperimentItem[] = [
       "Perplexity",
       "Claude",
       "Gemini",
-      "You.com",
+      "Microsoft Copilot",
     ],
     purpose: "Testing output divergence, citation sourcing, entity confidence, and answer structure across 6 major search engines using standardized query vectors.",
     slug: "same-question-six-systems",
