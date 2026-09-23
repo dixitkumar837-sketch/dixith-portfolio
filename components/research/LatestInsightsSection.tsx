@@ -3,7 +3,6 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { LATEST_INSIGHTS } from "@/data/articles";
-import { ArrowUpRight } from "lucide-react";
 
 export const LatestInsightsSection: React.FC = () => {
   return (
@@ -19,6 +18,7 @@ export const LatestInsightsSection: React.FC = () => {
           {LATEST_INSIGHTS.map((article) => (
             <article
               key={article.id}
+              aria-labelledby={`insight-title-${article.id}`}
               className="group bg-brand-surface/30 border border-brand-border hover:border-brand-accent/50 rounded-lg p-[28px] flex flex-col justify-between transition-all duration-300 hover:bg-brand-surface"
             >
               <div>
@@ -31,7 +31,10 @@ export const LatestInsightsSection: React.FC = () => {
                   </span>
                 </div>
 
-                <h3 className="font-display text-[20px] font-bold text-brand-text-primary tracking-tight leading-snug group-hover:text-brand-accent-hover transition-colors mb-[12px]">
+                <h3
+                  id={`insight-title-${article.id}`}
+                  className="font-display text-[20px] font-bold text-brand-text-primary tracking-tight leading-snug group-hover:text-brand-accent-hover transition-colors mb-[12px]"
+                >
                   {article.title}
                 </h3>
 
@@ -42,7 +45,9 @@ export const LatestInsightsSection: React.FC = () => {
 
               <div className="pt-[16px] border-t border-brand-border-subtle flex items-center justify-between font-mono text-[12px] text-brand-text-muted">
                 <span>Editorial Dispatch</span>
-                <ArrowUpRight className="w-4 h-4 text-brand-text-muted group-hover:text-brand-text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <span className="font-mono text-[10px] tracking-wider text-brand-text-muted border border-brand-border/60 px-[7px] py-[2px] rounded-sm uppercase">
+                  Planned
+                </span>
               </div>
             </article>
           ))}

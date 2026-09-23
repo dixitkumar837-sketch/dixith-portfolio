@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
@@ -25,7 +26,7 @@ export const AISearchLabSection: React.FC = () => {
           <div className="flex items-center gap-[8px]">
             <span className="w-[10px] h-[10px] rounded-full bg-brand-success animate-ping" />
             <span className="font-mono text-[12px] uppercase tracking-widest text-brand-success font-semibold">
-              ● ACTIVE EXPERIMENTS
+              ACTIVE EXPERIMENTS
             </span>
           </div>
         </div>
@@ -89,15 +90,27 @@ export const AISearchLabSection: React.FC = () => {
 
             <div className="mt-[32px] flex justify-end">
               <Button
+                href={`/ai-search-lab/${exp.slug}`}
                 variant="secondary"
                 size="md"
                 icon={<ArrowRight className="w-4 h-4" />}
+                aria-label={`View protocol for experiment ${exp.id}`}
               >
-                View Experiment Details
+                View {exp.id} Protocol &amp; Benchmark
               </Button>
             </div>
           </div>
         ))}
+
+        <div className="mt-[40px] text-center">
+          <Link
+            href="/ai-search-lab"
+            className="inline-flex items-center gap-[8px] font-mono text-[12px] uppercase tracking-widest text-brand-accent hover:text-brand-accent-hover font-semibold transition-colors focus-visible:outline-brand-accent"
+          >
+            <span>Explore AI Search Lab Environment &amp; Protocols</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </Container>
     </section>
   );

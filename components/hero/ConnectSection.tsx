@@ -10,7 +10,7 @@ export const ConnectSection: React.FC = () => {
       <Container>
         <div className="bg-gradient-to-b from-brand-surface to-brand-bg-secondary border border-brand-border rounded-lg p-[36px] sm:p-[64px] text-center max-w-4xl mx-auto space-y-[32px] shadow-2xl relative overflow-hidden">
           {/* Subtle Accent Glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[150px] bg-brand-accent/15 blur-[90px] pointer-events-none rounded-full" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[150px] bg-brand-accent/8 blur-[90px] pointer-events-none rounded-full" />
 
           <div className="font-mono text-[12px] uppercase tracking-widest text-brand-accent">
             EXECUTIVE & STRATEGIC INQUIRIES

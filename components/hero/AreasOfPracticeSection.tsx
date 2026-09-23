@@ -7,19 +7,19 @@ export const AreasOfPracticeSection: React.FC = () => {
   const practices = [
     {
       num: "01",
-      title: "AI SEARCH STRATEGY",
+      title: "AI Search Strategy",
       description:
         "Building visibility models for generative answer engines, AI overviews, and LLM search discovery.",
     },
     {
       num: "02",
-      title: "ENTERPRISE SEO",
+      title: "Enterprise SEO",
       description:
         "Architecting complex, large-scale technical search systems and multi-domain web footprints.",
     },
     {
       num: "03",
-      title: "TECHNICAL SEO",
+      title: "Technical SEO",
       description:
         "Optimizing crawling budgets, site architecture, rendering pipelines, and structured data schemas.",
     },
@@ -31,13 +31,13 @@ export const AreasOfPracticeSection: React.FC = () => {
     },
     {
       num: "05",
-      title: "INTERNATIONAL SEO",
+      title: "International SEO",
       description:
         "Managing multi-regional hreflang structures, global entity mapping, and localized search discovery.",
     },
     {
       num: "06",
-      title: "SEARCH EXPERIENCE",
+      title: "Search Experience",
       description:
         "Aligning user search intent, performance metrics, and seamless discovery interface design.",
     },

@@ -1,40 +1,45 @@
 import React from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
-import { ArrowRight, Network } from "lucide-react";
+import { AISearchUniverseGraph } from "./AISearchUniverseGraph";
+import { ArrowRight, Compass } from "lucide-react";
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="relative pt-[120px] md:pt-[160px] pb-[80px] md:pb-[128px] overflow-hidden">
-      {/* Background ambient lighting subtle accent blur */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-brand-accent/10 blur-[140px] pointer-events-none rounded-full" />
+    <section className="relative pt-[130px] md:pt-[170px] pb-[80px] md:pb-[130px] overflow-hidden">
+      {/* Subtle deep ambient glow — restrained, non-glowing */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-brand-accent/5 blur-[160px] pointer-events-none rounded-full" />
 
       <Container>
-        {/* 5 / 7 Column Grid Relationship */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-[48px] lg:gap-[32px] items-center">
+        {/* 5 / 7 Column Relationship with Strong Whitespace */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-[48px] lg:gap-[40px] items-center">
           
-          {/* Left Column (5 Cols Desktop) - Content */}
-          <div className="lg:col-span-5 space-y-[24px]">
-            <Badge variant="active" size="md">
+          {/* Left Column (5 Cols Desktop) — Editorial Content */}
+          <div className="lg:col-span-5 space-y-[28px]">
+            {/* Technical Metadata Tag */}
+            <div className="inline-flex items-center gap-[8px] font-mono text-[11px] tracking-[0.22em] text-brand-accent uppercase font-medium">
+              <span className="w-[5px] h-[5px] rounded-full bg-brand-accent" />
               RESEARCH · STRATEGY · EXPERIMENTATION
-            </Badge>
+            </div>
 
-            <div className="space-y-[12px]">
-              <h1 className="font-display text-[48px] sm:text-[64px] lg:text-[72px] font-bold tracking-tight text-brand-text-primary leading-[1.05]">
+            {/* Signature Headline */}
+            <div className="space-y-[14px]">
+              <h1 className="font-display text-[38px] sm:text-[54px] lg:text-[76px] font-bold tracking-[-0.03em] text-brand-text-primary leading-[0.98]">
                 SEARCH <br />
                 <span className="text-brand-accent">FORWARD</span>
               </h1>
-              <p className="font-mono text-[14px] uppercase tracking-widest text-brand-text-muted">
+              <div className="font-mono text-[13px] tracking-[0.2em] text-brand-text-muted uppercase">
                 AI SEARCH STRATEGIST
-              </p>
+              </div>
             </div>
 
-            <p className="text-[18px] sm:text-[20px] text-brand-text-secondary leading-relaxed font-sans max-w-xl">
-              &quot;I research how people, businesses and information are discovered across modern search.&quot;
+            {/* Supporting Positioning Statement */}
+            <p className="text-[18px] sm:text-[20px] text-brand-text-secondary leading-[1.6] font-sans max-w-xl font-normal">
+              I research how people, businesses and information are discovered across modern search.
             </p>
 
-            <div className="pt-[12px] flex flex-wrap items-center gap-[16px]">
+            {/* Editorial CTAs */}
+            <div className="pt-[8px] flex flex-wrap items-center gap-[16px]">
               <Button
                 href="#research"
                 variant="primary"
@@ -47,65 +52,16 @@ export const HeroSection: React.FC = () => {
                 href="#search-lab"
                 variant="secondary"
                 size="lg"
-                icon={<Network className="w-4 h-4 text-brand-accent" />}
+                icon={<Compass className="w-4 h-4 text-brand-accent" />}
               >
                 AI Search Lab
               </Button>
             </div>
           </div>
 
-          {/* Right Column (7 Cols Desktop) - Visual Placeholder Architecture */}
+          {/* Right Column (7 Cols Desktop) — Living Knowledge Graph */}
           <div className="lg:col-span-7">
-            <div className="relative w-full aspect-[4/3] bg-brand-surface/40 border border-brand-border/80 rounded-lg p-[24px] sm:p-[32px] flex flex-col justify-between overflow-hidden shadow-2xl backdrop-blur-sm group hover:border-brand-accent/40 transition-colors">
-              {/* Header Label */}
-              <div className="flex items-center justify-between border-b border-brand-border-subtle pb-[16px]">
-                <div className="flex items-center gap-[10px]">
-                  <span className="w-[8px] h-[8px] rounded-full bg-brand-accent animate-pulse" />
-                  <span className="font-mono text-[12px] uppercase tracking-widest text-brand-text-secondary">
-                    AI Search Universe — Knowledge Graph Architecture
-                  </span>
-                </div>
-                <Badge variant="outline" size="sm">Phase 1 Placeholder</Badge>
-              </div>
-
-              {/* Conceptual Node Grid Network Graphic Placeholder */}
-              <div className="relative my-[24px] flex-1 flex flex-col justify-center items-center">
-                {/* Node Graph Concept Mockup Nodes */}
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-[16px] sm:gap-[20px] w-full max-w-lg">
-                  {[
-                    "Users",
-                    "User Intent",
-                    "Google",
-                    "ChatGPT",
-                    "Gemini",
-                    "Claude",
-                    "Perplexity",
-                    "Entities",
-                    "Content",
-                    "Authority",
-                    "Citations",
-                  ].map((node, i) => (
-                    <div
-                      key={node}
-                      className="bg-brand-bg/80 border border-brand-border hover:border-brand-accent/60 p-[10px] rounded-md text-center transition-all duration-200"
-                    >
-                      <div className="font-mono text-[11px] text-brand-text-secondary font-medium">
-                        {node}
-                      </div>
-                      <div className="text-[9px] font-mono text-brand-text-muted mt-[2px]">
-                        [Node #{i + 1}]
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Subtitle / Footer Note */}
-              <div className="border-t border-brand-border-subtle pt-[12px] flex items-center justify-between text-[12px] font-mono text-brand-text-muted">
-                <span>SYSTEM: Multi-Node Retrieval Graph</span>
-                <span>STATUS: Interactive Engine Architecture Pending</span>
-              </div>
-            </div>
+            <AISearchUniverseGraph />
           </div>
 
         </div>

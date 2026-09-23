@@ -19,21 +19,21 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   return (
     <div
       className={cn(
-        "mb-[48px] md:mb-[64px]",
+        "mb-[40px] md:mb-[56px]",
         align === "center" && "text-center mx-auto max-w-2xl",
         className
       )}
     >
       {eyebrow && (
-        <div className="font-mono text-[12px] uppercase tracking-widest text-brand-accent mb-[12px]">
+        <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand-accent mb-[10px] font-medium">
           {eyebrow}
         </div>
       )}
-      <h2 className="font-display text-[32px] sm:text-[40px] md:text-[44px] font-bold text-brand-text-primary tracking-tight leading-[1.15]">
+      <h2 className="font-display text-[32px] sm:text-[40px] md:text-[44px] font-bold text-brand-text-primary tracking-[-0.02em] leading-[1.12]">
         {title}
       </h2>
       {description && (
-        <p className="mt-[16px] text-[16px] sm:text-[18px] md:text-[20px] text-brand-text-secondary leading-relaxed font-sans max-w-3xl">
+        <p className="mt-[14px] text-[16px] sm:text-[18px] text-brand-text-secondary leading-relaxed font-sans max-w-2xl font-normal">
           {description}
         </p>
       )}

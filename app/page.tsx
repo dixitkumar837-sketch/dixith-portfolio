@@ -9,10 +9,23 @@ import { CaseStudiesSection } from "@/components/case-studies/CaseStudiesSection
 import { LatestInsightsSection } from "@/components/research/LatestInsightsSection";
 import { AboutSection } from "@/components/hero/AboutSection";
 import { ConnectSection } from "@/components/hero/ConnectSection";
+import { SITE_CONFIG } from "@/lib/site-config";
+import { generateWebPageSchema } from "@/lib/schema";
 
 export default function Home() {
+  const webPageSchema = generateWebPageSchema({
+    title: SITE_CONFIG.defaultTitle,
+    description: SITE_CONFIG.description,
+    url: SITE_CONFIG.url,
+  });
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+
       {/* 1. Hero */}
       <HeroSection />
 
@@ -31,7 +44,7 @@ export default function Home() {
       {/* 6. AI Search Lab */}
       <AISearchLabSection />
 
-      {/* 7. Case Studies */}
+      {/* 7. Professional Experience */}
       <CaseStudiesSection />
 
       {/* 8. Latest Insights */}

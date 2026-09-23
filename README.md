@@ -1,38 +1,38 @@
-# Dixith Portfolio
+# DIXITH
 
-> Personal brand platform of **Dixith Kumar** — Digital Strategist & Search Experience Engineer.
+> Search Forward · Personal research and brand platform of **Dixith Kumar** — AI Search Strategist.
 
 ## Vision
 
 This is not just a portfolio.
 
-It is a long-term knowledge platform focused on:
+It is a long-term research and knowledge platform focused on:
 
-- Technical SEO
-- Search Experience Engineering
-- AI Search Optimization (AEO & GEO)
-- International SEO
-- Website Performance
-- Frontend Development
-- Case Studies
-- Search Experiments
+- AI Search & Generative Retrieval
+- Technical & Enterprise SEO
+- Answer Engine Optimization (AEO)
+- Generative Engine Optimization (GEO)
+- Search Systems Architecture
+- Information Discovery & Knowledge Graphs
+- Professional Experience & Field Architectures
+- Live Search Experiments
 
 ## Tech Stack
 
-- HTML5
-- CSS3
-- Vanilla JavaScript
+- Next.js 14 (App Router)
+- React 18 & TypeScript
+- Tailwind CSS
 
 ## Goals
 
-- Build a premium personal brand
-- Share technical knowledge
-- Publish real SEO experiments
-- Showcase projects and case studies
-- Learn frontend engineering from fundamentals
+- Build a premium personal research platform
+- Publish rigorous AI search experiments
+- Share technical information retrieval research
+- Showcase professional search architectures and frameworks
+- Maintain strict accessibility, performance, and machine-readability standards
 
 ## Status
 
-🚧 Currently under development.
+🚧 Currently under active development.
 
 Version: 0.1.0

@@ -40,3 +40,6 @@ next-env.d.ts
 /personel pdfs
 /pics
 /seo ai search lab
+
+# Derived Semantic Data
+/data/derived/

@@ -1,38 +1,36 @@
 import { NavItem } from "./types";
+import { SITE_CONFIG } from "@/lib/site-config";
 
 export const BRAND_CONFIG = {
-  name: "DIXITH",
-  fullName: "Dixith Kumar",
-  title: "AI Search Strategist",
-  tagline: "SEARCH FORWARD",
-  philosophy: "Research first. Build second. Measure always.",
-  principles: [
-    "Evidence over opinions",
-    "Research over assumptions",
-    "Results over noise",
-    "Long-term visibility over short-term ranking tactics",
-    "Clear thinking over marketing hype",
-    "Human expertise combined with emerging search technology",
-  ],
+  name: SITE_CONFIG.name,
+  fullName: SITE_CONFIG.author.name,
+  title: SITE_CONFIG.positioning,
+  tagline: SITE_CONFIG.tagline,
+  philosophy: SITE_CONFIG.philosophy,
+  principles: SITE_CONFIG.principles,
   socials: {
-    linkedIn: "https://linkedin.com",
-    whatsApp: "https://wa.me/",
-    gitHub: "https://github.com",
+    linkedIn: SITE_CONFIG.socials.linkedin,
+    whatsApp: SITE_CONFIG.socials.whatsapp,
+    gitHub: SITE_CONFIG.socials.github,
   },
 };
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Research", href: "#research" },
-  { label: "AI Search Lab", href: "#search-lab", badge: "ACTIVE" },
-  { label: "Case Studies", href: "#case-studies" },
-  { label: "About", href: "#about" },
+  { label: "Research", href: "/#research" },
+  { label: "AI Search Lab", href: "/#search-lab", badge: "ACTIVE" },
+  { label: "Articles", href: "/articles" },
+  { label: "Guides", href: "/guides" },
+  { label: "Professional Experience", href: "/#experience" },
+  { label: "About", href: "/about" },
 ];
 
 export const FOOTER_LINKS: NavItem[] = [
-  { label: "Research", href: "#research" },
-  { label: "AI Search Lab", href: "#search-lab" },
-  { label: "Case Studies", href: "#case-studies" },
-  { label: "Latest Insights", href: "#insights" },
-  { label: "About", href: "#about" },
-  { label: "Connect", href: "#connect" },
+  { label: "Research", href: "/#research" },
+  { label: "AI Search Lab", href: "/#search-lab" },
+  { label: "Articles", href: "/articles" },
+  { label: "Guides", href: "/guides" },
+  { label: "Professional Experience", href: "/#experience" },
+  { label: "About", href: "/about" },
+  { label: "Search", href: "/search" },
+  { label: "Connect", href: "/#connect" },
 ];

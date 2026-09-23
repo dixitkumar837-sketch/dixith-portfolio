@@ -1,9 +1,10 @@
 import React from "react";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Badge } from "@/components/ui/Badge";
 import { BRAND_CONFIG } from "@/data/navigation";
-import { User, CheckCircle } from "lucide-react";
+import { CheckCircle, ArrowRight } from "lucide-react";
 
 export const AboutSection: React.FC = () => {
   return (
@@ -21,20 +22,23 @@ export const AboutSection: React.FC = () => {
             <div className="relative aspect-[4/5] bg-brand-surface border border-brand-border rounded-lg p-[24px] flex flex-col justify-between overflow-hidden shadow-xl group">
               <div className="flex items-center justify-between">
                 <Badge variant="outline" size="sm">Executive Portrait Slot</Badge>
-                <User className="w-5 h-5 text-brand-text-muted" />
+                <span className="font-mono text-[11px] text-brand-text-muted tracking-widest">DK</span>
               </div>
 
               {/* Portrait Silhouette Graphic / Placeholder */}
               <div className="flex-1 flex flex-col items-center justify-center text-center p-[20px]">
-                <div className="w-[100px] h-[100px] rounded-full bg-brand-bg-secondary border border-brand-border flex items-center justify-center mb-[16px]">
-                  <User className="w-10 h-10 text-brand-text-muted" />
+                <div className="w-[100px] h-[100px] rounded-full bg-brand-bg-secondary border border-brand-border flex items-center justify-center mb-[16px] text-brand-accent font-display text-[26px] font-bold shadow-inner">
+                  DK
                 </div>
-                <h4 className="font-display text-[18px] font-bold text-brand-text-primary">
+                <p className="font-display text-[18px] font-bold text-brand-text-primary">
                   Dixith Kumar
-                </h4>
+                </p>
                 <p className="font-mono text-[12px] text-brand-accent mt-[4px]">
                   AI Search Strategist
                 </p>
+                <span className="font-mono text-[11px] text-brand-text-muted mt-[2px]">
+                  Search Forward
+                </span>
               </div>
 
               <div className="pt-[16px] border-t border-brand-border-subtle font-mono text-[11px] text-brand-text-muted text-center">
@@ -79,6 +83,17 @@ export const AboutSection: React.FC = () => {
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* Link to Full About Page */}
+            <div className="pt-[8px]">
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-2 font-mono text-[13px] font-semibold text-brand-accent hover:text-brand-accent-hover transition-colors px-5 py-2.5 rounded-lg border border-brand-accent/30 hover:border-brand-accent bg-brand-surface hover:bg-brand-surface-raised focus-visible:outline-brand-accent"
+              >
+                <span>Read Full Strategic Profile &amp; Philosophy</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </div>

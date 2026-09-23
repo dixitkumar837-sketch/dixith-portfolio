@@ -1,44 +1,76 @@
 import React from "react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { ArrowRight } from "lucide-react";
 
 export const PhilosophySection: React.FC = () => {
-  const steps = [
-    { label: "SEARCH", desc: "Indexation & Keywords" },
-    { label: "DISCOVERY", desc: "Entity Extraction & RAG" },
-    { label: "KNOWLEDGE", desc: "Graph Nodes & Citation" },
-    { label: "ANSWERS", desc: "Generative Recommendation" },
+  const progression = [
+    {
+      num: "01",
+      label: "SEARCH",
+      desc: "Indexation & Keywords",
+      note: "Traditional Retrieval",
+    },
+    {
+      num: "02",
+      label: "DISCOVERY",
+      desc: "Entity Extraction & RAG",
+      note: "Contextual Routing",
+    },
+    {
+      num: "03",
+      label: "KNOWLEDGE",
+      desc: "Graph Nodes & Authority",
+      note: "Entity Alignment",
+    },
+    {
+      num: "04",
+      label: "ANSWERS",
+      desc: "Generative Recommendation",
+      note: "Synthesis & Citation",
+    },
   ];
 
   return (
-    <section className="py-[96px] md:py-[128px] bg-brand-bg-secondary/40 border-y border-brand-border/60">
+    <section className="py-[80px] md:py-[112px] border-y border-brand-border/60 bg-brand-bg-secondary/25">
       <Container>
         <SectionHeader
-          eyebrow="SEARCH FORWARD PHILOSOPHY"
+          eyebrow="PARADIGM SHIFT"
           title="SEARCH IS CHANGING."
           description="Search is no longer just about ranking pages. It's increasingly about being discovered, understood, referenced and recommended."
         />
 
-        {/* Refined Visual Progression: SEARCH → DISCOVERY → KNOWLEDGE → ANSWERS */}
-        <div className="mt-[48px] md:mt-[64px]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[24px]">
-            {steps.map((step, idx) => (
-              <div key={step.label} className="relative group">
-                <div className="bg-brand-surface/60 border border-brand-border p-[24px] rounded-lg transition-all duration-300 group-hover:border-brand-accent/50 group-hover:bg-brand-surface">
-                  <div className="flex items-center justify-between mb-[16px]">
-                    <span className="font-mono text-[12px] text-brand-accent font-semibold tracking-wider">
-                      0{idx + 1}
+        {/* Editorial Progression: Pure Typography, Fine Hairlines & Whitespace */}
+        <div className="mt-[48px] border-t border-brand-border/60">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            {progression.map((item, idx) => (
+              <div
+                key={item.label}
+                className="py-[32px] sm:py-[40px] px-[16px] sm:px-[24px] border-b border-brand-border/60 sm:odd:border-r lg:border-b-0 lg:border-r lg:last:border-r-0 group hover:bg-brand-surface/20 transition-colors"
+              >
+                {/* Stage Indicator & Directional Symbol */}
+                <div className="flex items-center justify-between mb-[20px]">
+                  <span className="font-mono text-[11px] font-semibold text-brand-accent tracking-widest">
+                    {item.num}
+                  </span>
+                  {idx < progression.length - 1 && (
+                    <span className="font-mono text-[14px] text-brand-text-muted/60 group-hover:text-brand-accent transition-colors hidden lg:inline">
+                      →
                     </span>
-                    {idx < steps.length - 1 && (
-                      <ArrowRight className="w-4 h-4 text-brand-text-muted hidden lg:block group-hover:translate-x-1 transition-transform" />
-                    )}
-                  </div>
-                  <h3 className="font-display text-[20px] font-bold text-brand-text-primary tracking-tight">
-                    {step.label}
-                  </h3>
-                  <p className="mt-[8px] text-[14px] text-brand-text-muted font-sans">
-                    {step.desc}
+                  )}
+                </div>
+
+                {/* Stage Heading */}
+                <h3 className="font-display text-[26px] sm:text-[30px] font-bold text-brand-text-primary tracking-tight leading-none group-hover:text-brand-accent-hover transition-colors">
+                  {item.label}
+                </h3>
+
+                {/* Editorial Subtext */}
+                <div className="mt-[12px] space-y-[4px]">
+                  <p className="text-[14px] text-brand-text-secondary font-sans font-medium">
+                    {item.desc}
+                  </p>
+                  <p className="font-mono text-[11px] text-brand-text-muted uppercase tracking-wider">
+                    {item.note}
                   </p>
                 </div>
               </div>
