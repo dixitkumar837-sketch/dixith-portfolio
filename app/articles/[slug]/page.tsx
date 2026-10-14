@@ -251,7 +251,7 @@ export default function ArticleDetailPage({ params }: ArticlePageProps) {
         </header>
 
         {/* Main Content Area */}
-        <main className="max-w-[840px]">
+        <div className="max-w-[840px]">
           {/* Topics Tagging */}
           {article.topics && article.topics.length > 0 && (
             <section aria-label="Article Topics" className="mb-[40px]">
@@ -416,7 +416,7 @@ export default function ArticleDetailPage({ params }: ArticlePageProps) {
               </Link>
             </div>
           </footer>
-        </main>
+        </div>
       </Container>
     </article>
   );

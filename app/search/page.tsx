@@ -158,7 +158,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   });
 
   return (
-    <main className="py-[96px] md:py-[128px]">
+    <div className="py-[96px] md:py-[128px]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
@@ -183,7 +183,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             <li aria-hidden="true">
               <ChevronRight className="w-3.5 h-3.5 text-brand-border" />
             </li>
-            <li aria-current="page" className="text-brand-accent font-semibold">
+            <li aria-current="page" className="text-brand-accent-text font-semibold">
               Search
             </li>
           </ol>
@@ -264,7 +264,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 className={cn(
                   "px-3 py-1 rounded text-[11px] font-mono transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-accent",
                   selectedMode === "keyword"
-                    ? "bg-brand-surface border border-brand-accent/60 text-brand-accent font-semibold shadow-xs"
+                    ? "bg-brand-surface border border-brand-accent/60 text-brand-accent-text font-semibold shadow-xs"
                     : "bg-brand-surface/40 border border-brand-border text-brand-text-muted hover:text-brand-text-secondary hover:border-brand-border/80"
                 )}
               >
@@ -277,13 +277,13 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 className={cn(
                   "px-3 py-1 rounded text-[11px] font-mono transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-accent inline-flex items-center gap-1.5",
                   selectedMode === "hybrid"
-                    ? "bg-brand-surface border border-brand-accent/60 text-brand-accent font-semibold shadow-xs"
+                    ? "bg-brand-surface border border-brand-accent/60 text-brand-accent-text font-semibold shadow-xs"
                     : "bg-brand-surface/40 border border-brand-border text-brand-text-muted hover:text-brand-text-secondary hover:border-brand-border/80"
                 )}
               >
                 <Sparkles className="w-3 h-3 text-brand-accent" />
                 <span>Hybrid</span>
-                <span className="text-[9px] px-1 py-0.2 rounded bg-brand-accent/15 text-brand-accent font-mono uppercase tracking-wider font-semibold">
+                <span className="text-[9px] px-1 py-0.2 rounded bg-brand-accent/15 text-brand-accent-text font-mono uppercase tracking-wider font-semibold">
                   EXP
                 </span>
               </Link>
@@ -304,7 +304,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           {!query && (
             <div className="space-y-[36px]">
               <div>
-                <h2 className="font-mono text-[13px] tracking-wider text-brand-accent uppercase font-medium mb-[16px]">
+                <h2 className="font-mono text-[13px] tracking-wider text-brand-accent-text uppercase font-medium mb-[16px]">
                   SUGGESTED DISCOVERY QUERIES
                 </h2>
                 <div className="flex flex-wrap gap-2.5">
@@ -386,7 +386,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                     {results.length}
                   </strong>{" "}
                   {results.length === 1 ? "result" : "results"} for{" "}
-                  <span className="text-brand-accent">"{query}"</span>
+                  <span className="text-brand-accent-text">"{query}"</span>
                   {selectedType !== "all" && (
                     <span className="text-brand-text-muted">
                       {" "}
@@ -394,7 +394,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                     </span>
                   )}
                   {isHybridMode && (
-                    <span className="text-brand-accent font-mono text-[11px] ml-2 font-semibold">
+                    <span className="text-brand-accent-text font-mono text-[11px] ml-2 font-semibold">
                       [HYBRID RETRIEVAL]
                     </span>
                   )}
@@ -422,7 +422,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                           <span>{badge.label}</span>
                         </div>
                         {result.category && (
-                          <span className="font-mono text-[11px] text-brand-accent font-semibold tracking-wider uppercase">
+                          <span className="font-mono text-[11px] text-brand-accent-text font-semibold tracking-wider uppercase">
                             {result.category}
                           </span>
                         )}
@@ -436,7 +436,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                             className={cn(
                               "inline-flex items-center gap-1 px-2 py-0.5 rounded font-mono text-[10px] font-medium tracking-wider uppercase",
                               result.retrievalSignals === "both"
-                                ? "bg-brand-accent/10 border border-brand-accent/30 text-brand-accent"
+                                ? "bg-brand-accent/10 border border-brand-accent/30 text-brand-accent-text"
                                 : result.retrievalSignals === "semantic"
                                 ? "bg-brand-surface border border-brand-border text-brand-text-secondary"
                                 : "bg-brand-surface border border-brand-border text-brand-text-muted"
@@ -451,7 +451,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                         )}
 
                         {isPhraseMatch && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-brand-accent/10 border border-brand-accent/30 font-mono text-[10px] text-brand-accent font-medium tracking-wider uppercase">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-brand-accent/10 border border-brand-accent/30 font-mono text-[10px] text-brand-accent-text font-medium tracking-wider uppercase">
                             Phrase Match
                           </span>
                         )}
@@ -482,7 +482,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                       {/* Concise Matched Canonical Excerpt (Hybrid Mode Only) */}
                       {isHybridMode && result.matchedChunkExcerpt && (
                         <div className="mb-[16px] p-[12px] rounded bg-brand-bg/60 border border-brand-border/40 font-mono text-[12px] text-brand-text-secondary leading-relaxed">
-                          <span className="text-brand-accent text-[10px] uppercase tracking-wider font-semibold block mb-1">
+                          <span className="text-brand-accent-text text-[10px] uppercase tracking-wider font-semibold block mb-1">
                             Matched Context Excerpt:
                           </span>
                           <p className="italic font-sans text-[13px] text-brand-text-muted">
@@ -509,7 +509,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
                         <Link
                           href={result.href}
-                          className="inline-flex items-center gap-1.5 font-mono text-[12px] text-brand-accent group-hover:text-brand-accent-hover tracking-wider font-semibold focus-visible:outline-brand-accent"
+                          className="inline-flex items-center gap-1.5 font-mono text-[12px] text-brand-accent-text group-hover:text-brand-accent-light tracking-wider font-semibold focus-visible:outline-brand-accent"
                         >
                           <span>View Document</span>
                           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -536,42 +536,42 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               </div>
 
               <div className="space-y-[12px] pt-[16px] border-t border-brand-border/60">
-                <div className="font-mono text-[12px] text-brand-accent uppercase tracking-wider font-semibold">
+                <div className="font-mono text-[12px] text-brand-accent-text uppercase tracking-wider font-semibold">
                   RECOMMENDATIONS
                 </div>
                 <ul className="space-y-2 text-[14px] text-brand-text-secondary font-sans">
                   <li className="flex items-start gap-2">
-                    <span className="text-brand-accent font-mono">•</span>
+                    <span className="text-brand-accent-text font-mono">•</span>
                     <span>Verify spelling or try using fewer, broader keywords.</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-brand-accent font-mono">•</span>
+                    <span className="text-brand-accent-text font-mono">•</span>
                     <span>
                       Try broader concepts such as{" "}
                       <Link
                         href={buildSearchUrl("Healthcare", selectedMode, selectedType)}
-                        className="text-brand-accent underline hover:text-brand-accent-hover"
+                        className="text-brand-accent-text underline hover:text-brand-accent-light"
                       >
                         Healthcare
                       </Link>
                       ,{" "}
                       <Link
                         href={buildSearchUrl("International", selectedMode, selectedType)}
-                        className="text-brand-accent underline hover:text-brand-accent-hover"
+                        className="text-brand-accent-text underline hover:text-brand-accent-light"
                       >
                         International
                       </Link>
                       ,{" "}
                       <Link
                         href={buildSearchUrl("Architecture", selectedMode, selectedType)}
-                        className="text-brand-accent underline hover:text-brand-accent-hover"
+                        className="text-brand-accent-text underline hover:text-brand-accent-light"
                       >
                         Architecture
                       </Link>
                       , or{" "}
                       <Link
                         href={buildSearchUrl("Schema", selectedMode, selectedType)}
-                        className="text-brand-accent underline hover:text-brand-accent-hover"
+                        className="text-brand-accent-text underline hover:text-brand-accent-light"
                       >
                         Schema
                       </Link>
@@ -579,7 +579,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-brand-accent font-mono">•</span>
+                    <span className="text-brand-accent-text font-mono">•</span>
                     <span>
                       Only content with published indexable status is included.
                       Draft or under-review protocols remain private until released.
@@ -587,7 +587,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   </li>
                   {isHybridMode && (
                     <li className="flex items-start gap-2">
-                      <span className="text-brand-accent font-mono">•</span>
+                      <span className="text-brand-accent-text font-mono">•</span>
                       <span>
                         Hybrid mode combines exact terms and conceptual meaning; if your query is
                         outside information retrieval and technical architecture, it will be rejected.
@@ -611,6 +611,6 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           <span>DIXITH · SEARCH FORWARD</span>
         </footer>
       </Container>
-    </main>
+    </div>
   );
 }

@@ -11,6 +11,7 @@ export interface NavItem {
 export type ContentStatus =
   | "DRAFT"
   | "IN_REVIEW"
+  | "EVIDENCE_READY"
   | "ACTIVE"
   | "COMPLETED"
   | "PUBLISHED"
@@ -316,3 +317,7 @@ export interface GuideEntityModel extends BaseContentEntity {
   relatedResearchIds?: string[];
   relatedArticleIds?: string[];
 }
+
+export * from "./research-protocol-types";
+export * from "../lib/research/evidence-model";
+export * from "../lib/research/publication-gate";

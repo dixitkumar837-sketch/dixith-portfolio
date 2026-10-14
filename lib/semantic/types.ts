@@ -252,3 +252,70 @@ export interface SemanticRetrievalResponse {
     normalized: string;
   };
 }
+
+/**
+ * Canonical Evidence Citation Reference
+ * Binds a specific content chunk to its verified underlying source or empirical evidence.
+ */
+export interface EvidenceCitationReference {
+  citationKey: string; // e.g. "[1]", "[SRC-001]"
+  sourceId?: string;
+  sourceTitle?: string;
+  sourceUrl?: string;
+  publisher?: string;
+  verificationStatus?: "VERIFIED" | "ARCHIVED_MIRROR" | "UNCONFIRMED";
+  entityId: string;
+  entityType: EntityType;
+  chunkId: string;
+  section: string;
+  heading?: string;
+}
+
+/**
+ * Individual Evidence Item contained within an EvidencePack.
+ */
+export interface EvidenceItem {
+  id: string; // chunkId or composite evidence ID
+  entityId: string;
+  entityType: EntityType;
+  slug: string;
+  title: string;
+  section: string;
+  heading?: string;
+  content: string; // The grounded passage text
+  similarity: number; // Semantic or hybrid relevance score (0.0 - 1.0)
+  status: ContentStatus;
+  isIndexable: boolean;
+  topics: string[];
+  sourceIds: string[];
+  sources: EvidenceCitationReference[];
+  confidenceScore?: number; // Grounding confidence
+}
+
+/**
+ * Canonical EvidencePack Contract
+ * Future-ready contract for downstream grounded retrieval, citations, and answer synthesis.
+ * Encapsulates vetted retrieved content, source provenance, relevance telemetry,
+ * and publication verification before passing to any generative synthesis layer.
+ * 
+ * NOTE: LLM generation, answer synthesis, and Ask DIXITH are NOT implemented in Phase 8H.
+ */
+export interface EvidencePack {
+  query: {
+    raw: string;
+    normalized: string;
+  };
+  retrievalMode: "keyword" | "semantic" | "hybrid";
+  timestamp: string;
+  totalCandidatesRetrieved: number;
+  evidenceItems: EvidenceItem[];
+  citations: EvidenceCitationReference[];
+  metadata: {
+    retrievalLatencyMs: number;
+    gatingPassed: boolean;
+    allEntitiesPublished: boolean;
+    primaryTopics: string[];
+    isolatedExperienceCount: number;
+    independentKnowledgeCount: number;
+  };
+}

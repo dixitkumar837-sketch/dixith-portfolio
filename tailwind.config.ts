@@ -18,6 +18,8 @@ const config: Config = {
           accent: "#2563EB",
           "accent-hover": "#3B82F6",
           "accent-active": "#1D4ED8",
+          "accent-text": "#3B82F6",
+          "accent-light": "#60A5FA",
           "text-primary": "#F8FAFC",
           "text-secondary": "#CBD5E1",
           "text-muted": "#94A3B8",

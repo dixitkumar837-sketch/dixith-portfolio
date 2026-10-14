@@ -20,7 +20,7 @@ export const Badge: React.FC<BadgeProps> = ({
     default:
       "bg-brand-surface-hover text-brand-text-secondary border border-brand-border-subtle",
     active:
-      "bg-brand-accent/15 text-brand-accent-hover border border-brand-accent/30",
+      "bg-brand-accent/15 text-brand-accent-text border border-brand-accent/30",
     outline:
       "bg-transparent text-brand-text-muted border border-brand-border",
     success:

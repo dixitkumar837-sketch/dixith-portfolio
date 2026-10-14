@@ -97,7 +97,7 @@ export default function ProfessionalExperienceArchivePage() {
             <li aria-hidden="true">
               <ChevronRight className="w-3.5 h-3.5 text-brand-border" />
             </li>
-            <li aria-current="page" className="text-brand-accent font-semibold">
+            <li aria-current="page" className="text-brand-accent-text font-semibold">
               Professional Experience
             </li>
           </ol>
@@ -107,7 +107,7 @@ export default function ProfessionalExperienceArchivePage() {
         <header className="mb-[64px] border-b border-brand-border pb-[48px]">
           <div className="flex items-center gap-2 mb-[16px]">
             <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
-            <span className="font-mono text-[11px] font-semibold tracking-wider text-brand-accent uppercase">
+            <span className="font-mono text-[11px] font-semibold tracking-wider text-brand-accent-text uppercase">
               PROFESSIONAL BACKGROUND &amp; FIELD EXPERTISE
             </span>
           </div>
@@ -150,7 +150,7 @@ export default function ProfessionalExperienceArchivePage() {
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-[24px]">
                 <div>
                   <div className="flex flex-wrap items-center gap-3 mb-[12px]">
-                    <span className="font-mono text-[11px] font-semibold text-brand-accent bg-brand-accent/10 px-2 py-0.5 rounded border border-brand-accent/20">
+                    <span className="font-mono text-[11px] font-semibold text-brand-accent-text bg-brand-accent/10 px-2 py-0.5 rounded border border-brand-accent/20">
                       {pe.id}
                     </span>
                     <Badge variant="outline" size="sm">
@@ -178,7 +178,7 @@ export default function ProfessionalExperienceArchivePage() {
 
                 <Link
                   href={`/professional-experience/${pe.slug}`}
-                  className="inline-flex items-center gap-2 self-start font-mono text-[12px] font-medium text-brand-accent hover:text-brand-accent-hover transition-colors px-4 py-2 rounded border border-brand-accent/30 hover:border-brand-accent shrink-0 focus-visible:outline-brand-accent"
+                  className="inline-flex items-center gap-2 self-start font-mono text-[12px] font-medium text-brand-accent-text hover:text-brand-accent-light transition-colors px-4 py-2 rounded border border-brand-accent/30 hover:border-brand-accent shrink-0 focus-visible:outline-brand-accent"
                   aria-label={`Review technical architecture for ${pe.title}`}
                 >
                   <span>Review Architecture</span>
@@ -193,7 +193,7 @@ export default function ProfessionalExperienceArchivePage() {
               {/* Two Column Focus Breakdown */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-[20px] border-t border-brand-border-subtle mb-[24px]">
                 <div>
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-brand-accent block mb-[10px]">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-brand-accent-text block mb-[10px]">
                     AREAS OF RESPONSIBILITY
                   </span>
                   <ul className="space-y-2 text-[13px] text-brand-text-secondary leading-relaxed">
@@ -206,7 +206,7 @@ export default function ProfessionalExperienceArchivePage() {
                   </ul>
                 </div>
                 <div>
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-brand-accent block mb-[10px]">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-brand-accent-text block mb-[10px]">
                     TECHNICAL ARCHITECTURE FOCUS
                   </span>
                   <ul className="space-y-2 text-[13px] text-brand-text-secondary leading-relaxed">

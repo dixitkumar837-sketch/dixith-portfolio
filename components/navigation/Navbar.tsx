@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ArrowRight, Search } from "lucide-react";
+import { Menu, X, ArrowRight, Search, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { KnowledgeNodeLogo } from "./KnowledgeNodeLogo";
 import { NAV_ITEMS } from "@/data/navigation";
@@ -72,7 +72,15 @@ export const Navbar: React.FC = () => {
               <Search className="w-3.5 h-3.5" />
             </Link>
             <Link
-              href="#connect"
+              href="/ask-dixith"
+              aria-label="Ask DIXITH Knowledge Base"
+              className="inline-flex items-center gap-[6px] text-[12px] font-mono text-brand-text-secondary hover:text-brand-text-primary hover:border-brand-accent/50 rounded-interactive border border-brand-border/70 bg-brand-surface/40 hover:bg-brand-surface/80 px-[10px] py-[6px] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-accent"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-brand-accent" />
+              <span>Ask DIXITH</span>
+            </Link>
+            <Link
+              href="/#connect"
               className="group inline-flex items-center gap-[6px] text-[13px] font-mono font-medium text-brand-text-primary hover:text-brand-accent transition-colors py-[6px] px-[12px] rounded-interactive border border-brand-border/70 hover:border-brand-accent/50 bg-brand-surface/40 hover:bg-brand-surface/80 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-accent"
             >
               <span>Connect</span>
@@ -137,7 +145,18 @@ export const Navbar: React.FC = () => {
               <span className="font-mono text-[11px] text-brand-text-muted">/search</span>
             </Link>
             <Link
-              href="#connect"
+              href="/ask-dixith"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between w-full text-[14px] font-mono font-medium text-brand-text-primary bg-brand-surface border border-brand-border/80 px-[16px] py-[10px] rounded-interactive hover:border-brand-accent/50"
+            >
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-brand-accent" />
+                <span>Ask DIXITH</span>
+              </div>
+              <span className="font-mono text-[11px] text-brand-text-muted">/ask-dixith</span>
+            </Link>
+            <Link
+              href="/#connect"
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center justify-between w-full text-[14px] font-mono font-medium text-brand-text-primary bg-brand-surface border border-brand-border/80 px-[16px] py-[10px] rounded-interactive hover:border-brand-accent/50"
             >

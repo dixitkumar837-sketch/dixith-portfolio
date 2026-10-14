@@ -92,7 +92,7 @@ export default function ArticlesArchivePage() {
             <li aria-hidden="true">
               <ChevronRight className="w-3.5 h-3.5 text-brand-border" />
             </li>
-            <li aria-current="page" className="text-brand-accent font-semibold">
+            <li aria-current="page" className="text-brand-accent-text font-semibold">
               Articles
             </li>
           </ol>
@@ -102,7 +102,7 @@ export default function ArticlesArchivePage() {
         <header className="max-w-[800px] mb-[64px]">
           <div className="flex items-center space-x-2.5 mb-[16px]">
             <span className="w-2 h-2 rounded-full bg-brand-accent" />
-            <span className="font-mono text-[12px] tracking-[0.18em] text-brand-accent uppercase font-medium">
+            <span className="font-mono text-[12px] tracking-[0.18em] text-brand-accent-text uppercase font-medium">
               EDITORIAL PERSPECTIVES & ANALYSES
             </span>
           </div>

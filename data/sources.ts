@@ -41,6 +41,24 @@ export const CANONICAL_SOURCES: Record<string, SourceEntity> = {
     verificationStatus: "VERIFIED",
     accessedDate: "2026-03-22",
   },
+  "SRC-005": {
+    id: "SRC-005",
+    title: "Google Search Central: Overview of Google Crawlers and Google-Extended",
+    url: "https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers",
+    publisher: "Google Developers",
+    sourceType: "OFFICIAL_DOCUMENTATION",
+    verificationStatus: "VERIFIED",
+    accessedDate: "2026-03-24",
+  },
+  "SRC-006": {
+    id: "SRC-006",
+    title: "Perplexity: PerplexityBot Web Crawler Documentation",
+    url: "https://docs.perplexity.ai/guides/perplexitybot",
+    publisher: "Perplexity AI",
+    sourceType: "OFFICIAL_DOCUMENTATION",
+    verificationStatus: "VERIFIED",
+    accessedDate: "2026-03-24",
+  },
 };
 
 export function getAllSources(): SourceEntity[] {

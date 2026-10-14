@@ -137,6 +137,459 @@ export function getRelatedEntities(entityReferences?: EntityReference[]): Resolv
   return results;
 }
 
+export interface ResolvedRelationship {
+  sourceType: EntityType;
+  sourceId: string;
+  sourceEntity: unknown;
+  targetType: EntityType;
+  targetId: string;
+  targetEntity: unknown;
+  relation?: RelationType;
+  isValid: boolean;
+  error?: string;
+}
+
+/**
+ * Resolves and validates a single directed relationship between source and target entities.
+ */
+export function resolveRelationship(
+  source: { type: EntityType; id: string },
+  target: EntityReference
+): ResolvedRelationship {
+  const sourceEntity = resolveEntity(source.type, source.id);
+  const targetEntity = resolveEntity(target.type, target.id);
+
+  if (!sourceEntity) {
+    return {
+      sourceType: source.type,
+      sourceId: source.id,
+      sourceEntity: undefined,
+      targetType: target.type,
+      targetId: target.id,
+      targetEntity: undefined,
+      relation: target.relation,
+      isValid: false,
+      error: `Source entity not found: ${source.type}:${source.id}`,
+    };
+  }
+
+  if (!targetEntity) {
+    return {
+      sourceType: source.type,
+      sourceId: source.id,
+      sourceEntity,
+      targetType: target.type,
+      targetId: target.id,
+      targetEntity: undefined,
+      relation: target.relation,
+      isValid: false,
+      error: `Target entity not found: ${target.type}:${target.id}`,
+    };
+  }
+
+  const LEGAL_RELATIONS: RelationType[] = [
+    "validates",
+    "tests",
+    "explains",
+    "applies",
+    "references",
+    "builds_on",
+  ];
+  if (target.relation && !LEGAL_RELATIONS.includes(target.relation)) {
+    return {
+      sourceType: source.type,
+      sourceId: source.id,
+      sourceEntity,
+      targetType: target.type,
+      targetId: target.id,
+      targetEntity,
+      relation: target.relation,
+      isValid: false,
+      error: `Invalid relation type: ${target.relation}`,
+    };
+  }
+
+  return {
+    sourceType: source.type,
+    sourceId: source.id,
+    sourceEntity,
+    targetType: target.type,
+    targetId: target.id,
+    targetEntity,
+    relation: target.relation,
+    isValid: true,
+  };
+}
+
+export interface RelatedContentItem {
+  targetType: EntityType;
+  targetId: string;
+  targetTitle: string;
+  targetStatus?: ContentStatus;
+  relation?: RelationType;
+  targetEntity: unknown;
+}
+
+/**
+ * Resolves outgoing related content items for a given entity with optional public-only filtering.
+ * Enforces deterministic sorting: targetType ASC, then targetId ASC.
+ */
+export function getRelatedContent(
+  type: EntityType,
+  id: string,
+  options?: { publicOnly?: boolean }
+): RelatedContentItem[] {
+  const publicOnly = Boolean(options?.publicOnly);
+  const source = resolveEntity(type, id) as
+    | {
+        id: string;
+        title: string;
+        status: ContentStatus;
+        entityReferences?: EntityReference[];
+        relatedResearchIds?: string[];
+        relatedExperimentIds?: string[];
+      }
+    | undefined;
+
+  if (!source) return [];
+
+  const items: RelatedContentItem[] = [];
+  const seenKeys = new Set<string>();
+
+  if (source.entityReferences) {
+    for (const ref of source.entityReferences) {
+      const target = resolveEntity(ref.type, ref.id) as
+        | { id: string; title: string; status?: ContentStatus }
+        | undefined;
+      if (!target) continue;
+
+      if (publicOnly && target.status && !isIndexable(target.status)) {
+        continue;
+      }
+
+      const key = `${ref.type}:${ref.id}`;
+      if (!seenKeys.has(key)) {
+        seenKeys.add(key);
+        items.push({
+          targetType: ref.type,
+          targetId: ref.id,
+          targetTitle: target.title || ref.id,
+          targetStatus: target.status,
+          relation: ref.relation,
+          targetEntity: target,
+        });
+      }
+    }
+  }
+
+  items.sort((a, b) => {
+    const typeCmp = a.targetType.localeCompare(b.targetType);
+    if (typeCmp !== 0) return typeCmp;
+    return a.targetId.localeCompare(b.targetId);
+  });
+
+  return items;
+}
+
+export interface ContentBacklink {
+  sourceType: EntityType;
+  sourceId: string;
+  sourceTitle: string;
+  sourceStatus: ContentStatus;
+  relation?: RelationType;
+  sourceEntity: unknown;
+}
+
+/**
+ * Scans all content entities to find reverse backlinks referencing targetId.
+ * Supports optional targetType matching and public-only filtering.
+ * Enforces deterministic sorting: sourceType ASC, then sourceId ASC.
+ */
+export function getContentBacklinks(
+  targetId: string,
+  targetType?: EntityType,
+  options?: { publicOnly?: boolean }
+): ContentBacklink[] {
+  const publicOnly = Boolean(options?.publicOnly);
+  const backlinks: ContentBacklink[] = [];
+
+  const allResearch = getAllResearch();
+  const allExperiments = getAllExperiments();
+  const allArticles = getAllArticles();
+  const allGuides = getAllGuides();
+  const allExperiences = getAllProfessionalExperiences();
+
+  const checkEntity = (
+    entity: {
+      id: string;
+      title: string;
+      status: ContentStatus;
+      entityReferences?: EntityReference[];
+      relatedResearchIds?: string[];
+      relatedExperimentIds?: string[];
+      sourceIds?: string[];
+      topics?: string[];
+    },
+    sourceType: EntityType
+  ) => {
+    if (publicOnly && !isIndexable(entity.status)) {
+      return;
+    }
+
+    let matchedRelation: RelationType | undefined = undefined;
+    let isMatched = false;
+
+    // 1. Explicit entityReferences
+    if (entity.entityReferences) {
+      for (const ref of entity.entityReferences) {
+        if (ref.id === targetId && (!targetType || ref.type === targetType)) {
+          isMatched = true;
+          matchedRelation = ref.relation;
+          break;
+        }
+      }
+    }
+
+    // 2. Relational shortcut arrays
+    if (!isMatched) {
+      if (entity.relatedResearchIds && entity.relatedResearchIds.includes(targetId)) {
+        isMatched = true;
+        matchedRelation = "references";
+      } else if (entity.relatedExperimentIds && entity.relatedExperimentIds.includes(targetId)) {
+        isMatched = true;
+        matchedRelation = "validates";
+      } else if (entity.sourceIds && entity.sourceIds.includes(targetId)) {
+        isMatched = true;
+        matchedRelation = "references";
+      } else if (entity.topics && entity.topics.includes(targetId)) {
+        isMatched = true;
+        matchedRelation = "references";
+      }
+    }
+
+    if (isMatched) {
+      backlinks.push({
+        sourceType,
+        sourceId: entity.id,
+        sourceTitle: entity.title,
+        sourceStatus: entity.status,
+        relation: matchedRelation,
+        sourceEntity: entity,
+      });
+    }
+  };
+
+  allResearch.forEach((e) => checkEntity(e, "research"));
+  allExperiments.forEach((e) => checkEntity(e, "experiment"));
+  allArticles.forEach((e) => checkEntity(e, "article"));
+  allGuides.forEach((e) => checkEntity(e, "guide"));
+  allExperiences.forEach((e) => checkEntity(e, "professional-experience"));
+
+  backlinks.sort((a, b) => {
+    const typeCmp = a.sourceType.localeCompare(b.sourceType);
+    if (typeCmp !== 0) return typeCmp;
+    return a.sourceId.localeCompare(b.sourceId);
+  });
+
+  return backlinks;
+}
+
+export interface GraphCycle {
+  path: string[];
+  classification: "INTENTIONAL_COMPLEMENTARY" | "INTENTIONAL_VALIDATION" | "SUSPICIOUS" | "INVALID";
+  description: string;
+}
+
+/**
+ * Detects cycles in the directed graph of entityReferences across canonical content entities.
+ * Classifies known complementary research cross-references and benchmark co-validation loops.
+ */
+export function detectGraphCycles(): GraphCycle[] {
+  const allResearch = getAllResearch();
+  const allExperiments = getAllExperiments();
+  const allArticles = getAllArticles();
+  const allGuides = getAllGuides();
+  const allExperiences = getAllProfessionalExperiences();
+
+  const allEntities = [
+    ...allResearch.map((e) => ({ id: e.id, type: "research" as EntityType, refs: e.entityReferences || [] })),
+    ...allExperiments.map((e) => ({ id: e.id, type: "experiment" as EntityType, refs: e.entityReferences || [] })),
+    ...allArticles.map((e) => ({ id: e.id, type: "article" as EntityType, refs: e.entityReferences || [] })),
+    ...allGuides.map((e) => ({ id: e.id, type: "guide" as EntityType, refs: e.entityReferences || [] })),
+    ...allExperiences.map((e) => ({ id: e.id, type: "professional-experience" as EntityType, refs: e.entityReferences || [] })),
+  ];
+
+  const adj = new Map<string, { id: string; type: EntityType }[]>();
+  for (const entity of allEntities) {
+    adj.set(
+      entity.id,
+      entity.refs.map((r) => ({ id: r.id, type: r.type }))
+    );
+  }
+
+  const cycles: GraphCycle[] = [];
+  const visited = new Set<string>();
+  const recursionStack: string[] = [];
+
+  const dfs = (currId: string) => {
+    visited.add(currId);
+    recursionStack.push(currId);
+
+    const neighbors = adj.get(currId) || [];
+    for (const neighbor of neighbors) {
+      const idx = recursionStack.indexOf(neighbor.id);
+      if (idx !== -1) {
+        // Cycle detected
+        const cycleNodes = recursionStack.slice(idx);
+        // Normalize cycle key to avoid reporting same cycle rotated
+        const minNode = cycleNodes.reduce((min, cur) => (cur < min ? cur : min));
+        const minIdx = cycleNodes.indexOf(minNode);
+        const canonicalPath = [
+          ...cycleNodes.slice(minIdx),
+          ...cycleNodes.slice(0, minIdx),
+          minNode,
+        ];
+        const key = canonicalPath.join(" -> ");
+
+        if (!cycles.some((c) => c.path.join(" -> ") === key)) {
+          let classification: GraphCycle["classification"] = "SUSPICIOUS";
+          let description = "Unclassified cycle";
+
+          if (
+            canonicalPath.includes("EXP-013") &&
+            canonicalPath.includes("EXP-014") &&
+            !canonicalPath.includes("EXP-001")
+          ) {
+            classification = "INTENTIONAL_COMPLEMENTARY";
+            description = "Complementary cross-referencing between research protocols (EXP-013 <-> EXP-014)";
+          } else if (canonicalPath.includes("EXP-001")) {
+            classification = "INTENTIONAL_VALIDATION";
+            description = `Co-validation loop between Experiment benchmark and Research protocol (${canonicalPath.slice(0, 2).join(" <-> ")})`;
+          }
+
+          cycles.push({
+            path: canonicalPath,
+            classification,
+            description,
+          });
+        }
+      } else if (!visited.has(neighbor.id)) {
+        dfs(neighbor.id);
+      }
+    }
+
+    recursionStack.pop();
+  };
+
+  for (const entity of allEntities) {
+    if (!visited.has(entity.id)) {
+      dfs(entity.id);
+    }
+  }
+
+  return cycles;
+}
+
+export interface OrphanAnalysisResult {
+  entityId: string;
+  entityType: EntityType;
+  inDegree: number;
+  outDegree: number;
+  classification: "EXPECTED" | "REVIEW" | "ERROR";
+  reason: string;
+}
+
+/**
+ * Analyzes in-degree and out-degree connectivity across all canonical entities.
+ * Identifies isolated nodes, terminal metadata sinks, and unassigned taxonomy topics.
+ */
+export function analyzeGraphOrphans(): OrphanAnalysisResult[] {
+  const allResearch = getAllResearch();
+  const allExperiments = getAllExperiments();
+  const allArticles = getAllArticles();
+  const allGuides = getAllGuides();
+  const allExperiences = getAllProfessionalExperiences();
+  const allSources = getAllSources();
+  const allTopics = getAllTopics();
+  const author = getCanonicalAuthor();
+
+  const entities: {
+    id: string;
+    type: EntityType;
+    title: string;
+    refs: EntityReference[];
+    sources: string[];
+    topics: string[];
+    authorId?: string;
+  }[] = [
+    ...allResearch.map((e) => ({ id: e.id, type: "research" as EntityType, title: e.title, refs: e.entityReferences || [], sources: e.sourceIds || [], topics: e.topics || [], authorId: e.authorId })),
+    ...allExperiments.map((e) => ({ id: e.id, type: "experiment" as EntityType, title: e.title, refs: e.entityReferences || [], sources: e.sourceIds || [], topics: e.topics || [], authorId: e.authorId })),
+    ...allArticles.map((e) => ({ id: e.id, type: "article" as EntityType, title: e.title, refs: e.entityReferences || [], sources: e.sourceIds || [], topics: e.topics || [], authorId: e.authorId })),
+    ...allGuides.map((e) => ({ id: e.id, type: "guide" as EntityType, title: e.title, refs: e.entityReferences || [], sources: e.sourceIds || [], topics: e.topics || [], authorId: e.authorId })),
+    ...allExperiences.map((e) => ({ id: e.id, type: "professional-experience" as EntityType, title: e.title, refs: e.entityReferences || [], sources: [], topics: e.topics || [], authorId: undefined })),
+    ...allSources.map((e) => ({ id: e.id, type: "source" as EntityType, title: e.title, refs: [], sources: [], topics: [], authorId: undefined })),
+    ...allTopics.map((e) => ({ id: e.id, type: "topic" as EntityType, title: e.name, refs: [], sources: [], topics: [], authorId: undefined })),
+    { id: author.id, type: "author" as EntityType, title: author.name, refs: [], sources: [], topics: [], authorId: undefined },
+  ];
+
+  const inDegree = new Map<string, number>();
+  const outDegree = new Map<string, number>();
+  entities.forEach((e) => {
+    inDegree.set(e.id, 0);
+    outDegree.set(e.id, 0);
+  });
+
+  entities.forEach((e) => {
+    const out = e.refs.length + e.sources.length + e.topics.length + (e.authorId ? 1 : 0);
+    outDegree.set(e.id, out);
+    e.refs.forEach((r) => inDegree.set(r.id, (inDegree.get(r.id) || 0) + 1));
+    e.sources.forEach((s) => inDegree.set(s, (inDegree.get(s) || 0) + 1));
+    e.topics.forEach((t) => inDegree.set(t, (inDegree.get(t) || 0) + 1));
+    if (e.authorId) inDegree.set(e.authorId, (inDegree.get(e.authorId) || 0) + 1);
+  });
+
+  const results: OrphanAnalysisResult[] = [];
+
+  for (const e of entities) {
+    const inDeg = inDegree.get(e.id) || 0;
+    const outDeg = outDegree.get(e.id) || 0;
+
+    let classification: OrphanAnalysisResult["classification"] = "EXPECTED";
+    let reason = "Connected entity";
+
+    if (inDeg === 0 && outDeg === 0) {
+      if (e.type === "topic") {
+        classification = "REVIEW";
+        reason = "Taxonomy topic with 0 content entities currently tagged (TOP-003 Answer Engine Optimization)";
+      } else {
+        classification = "ERROR";
+        reason = "Isolated zero-degree node with no incoming or outgoing connections";
+      }
+    } else if (inDeg === 0) {
+      if (e.type === "article" || e.type === "guide" || e.type === "professional-experience") {
+        classification = "EXPECTED";
+        reason = "Leaf content entity with outgoing research/topic links but no incoming links";
+      }
+    } else if (outDeg === 0) {
+      if (e.type === "source" || e.type === "topic" || e.type === "author") {
+        classification = "EXPECTED";
+        reason = "Terminal metadata node referenced by content entities";
+      }
+    }
+
+    results.push({
+      entityId: e.id,
+      entityType: e.type,
+      inDegree: inDeg,
+      outDegree: outDeg,
+      classification,
+      reason,
+    });
+  }
+
+  return results;
+}
+
 /**
  * Finds all articles that explain or reference a specific research ID.
  */

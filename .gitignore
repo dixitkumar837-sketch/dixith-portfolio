@@ -43,3 +43,7 @@ next-env.d.ts
 
 # Derived Semantic Data
 /data/derived/
+
+# Research Evidence Raw Captures (Large binary screenshots & DOM snapshots remain local)
+/evidence/**/raw/
+.research-profiles/

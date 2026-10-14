@@ -267,7 +267,7 @@ export default function GuideDetailPage({ params }: GuidePageProps) {
         </header>
 
         {/* Main Content Area */}
-        <main className="max-w-[840px]">
+        <div className="max-w-[840px]">
           {/* Topics Tagging */}
           {guide.topics && guide.topics.length > 0 && (
             <section aria-label="Guide Topics" className="mb-[40px]">
@@ -576,7 +576,7 @@ export default function GuideDetailPage({ params }: GuidePageProps) {
               </Link>
             </div>
           </footer>
-        </main>
+        </div>
       </Container>
     </article>
   );

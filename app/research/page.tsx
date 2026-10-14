@@ -91,7 +91,7 @@ export default function ResearchArchivePage() {
             <li aria-hidden="true">
               <ChevronRight className="w-3.5 h-3.5 text-brand-border" />
             </li>
-            <li aria-current="page" className="text-brand-accent font-semibold">
+            <li aria-current="page" className="text-brand-accent-text font-semibold">
               Research
             </li>
           </ol>
@@ -99,7 +99,7 @@ export default function ResearchArchivePage() {
 
         {/* Editorial Archive Header */}
         <header className="pb-[48px] border-b border-brand-border/60">
-          <div className="inline-flex items-center gap-[8px] font-mono text-[11px] tracking-[0.2em] text-brand-accent uppercase font-medium mb-[16px]">
+          <div className="inline-flex items-center gap-[8px] font-mono text-[11px] tracking-[0.2em] text-brand-accent-text uppercase font-medium mb-[16px]">
             <span className="w-[6px] h-[6px] rounded-full bg-brand-accent" />
             RESEARCH ARCHIVE · EMPIRICAL & SYSTEMIC
           </div>
@@ -146,7 +146,7 @@ export default function ResearchArchivePage() {
                     <Badge variant="active" size="sm">
                       {item.id}
                     </Badge>
-                    <span className="font-mono text-[11px] text-brand-accent tracking-wider uppercase">
+                    <span className="font-mono text-[11px] text-brand-accent-text tracking-wider uppercase">
                       {item.category}
                     </span>
                     <span className="text-brand-border">•</span>
@@ -209,7 +209,7 @@ export default function ResearchArchivePage() {
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-[16px]">
             <div>
-              <div className="font-mono text-[11px] text-brand-accent uppercase tracking-widest font-semibold mb-[6px]">
+              <div className="font-mono text-[11px] text-brand-accent-text uppercase tracking-widest font-semibold mb-[6px]">
                 EDITORIAL STANDARDS &amp; PUBLICATION PROTOCOL
               </div>
               <p className="text-[14px] text-brand-text-secondary leading-relaxed font-sans max-w-3xl">
@@ -221,7 +221,7 @@ export default function ResearchArchivePage() {
             <div className="flex-shrink-0">
               <Link
                 href="/#search-lab"
-                className="inline-flex items-center gap-[8px] font-mono text-[12px] text-brand-accent hover:text-brand-accent-hover tracking-wider uppercase font-semibold"
+                className="inline-flex items-center gap-[8px] font-mono text-[12px] text-brand-accent-text hover:text-brand-accent-light tracking-wider uppercase font-semibold"
               >
                 <span>Active Experiments in AI Search Lab</span>
                 <ArrowRight className="w-4 h-4" />

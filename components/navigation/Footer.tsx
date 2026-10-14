@@ -89,7 +89,7 @@ export const Footer: React.FC = () => {
             © {new Date().getFullYear()} DIXITH. {BRAND_CONFIG.tagline}. All rights reserved.
           </div>
           <div className="flex items-center gap-[24px]">
-            <span>WCAG 2.2 AA Accessible</span>
+            <span>Engineered with WCAG 2.2 AA principles in mind</span>
             <span>Zero Tracking</span>
           </div>
         </div>

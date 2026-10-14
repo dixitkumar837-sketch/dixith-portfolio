@@ -1,0 +1,5 @@
+[TEST FIXTURE — NOT EXPERIMENTAL EVIDENCE]
+This file is a local development fixture used exclusively to test the SHA-256 integrity calculation and file pipeline in the capture harness.
+It does not represent any real generative search output or experiment evidence.
+Timestamp: 2026-09-25T00:00:00Z
+Test Payload: Validating SHA-256 deterministic byte hashing.

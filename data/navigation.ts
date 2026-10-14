@@ -32,5 +32,6 @@ export const FOOTER_LINKS: NavItem[] = [
   { label: "Professional Experience", href: "/#experience" },
   { label: "About", href: "/about" },
   { label: "Search", href: "/search" },
+  { label: "Ask DIXITH", href: "/ask-dixith" },
   { label: "Connect", href: "/#connect" },
 ];

@@ -98,6 +98,9 @@ export const DIXITH_TAXONOMY_ALIASES: Record<string, string[]> = {
   "ai search": ["generative search", "ai-search"],
   "ai-search": ["ai search"],
   hreflang: ["international search", "cross-border"],
+  "international search": ["hreflang", "cross-border"],
+  "cross-border": ["hreflang", "international search"],
+  "cross border": ["hreflang", "international search"],
 };
 
 /**

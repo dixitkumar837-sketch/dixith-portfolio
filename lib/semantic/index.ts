@@ -25,6 +25,9 @@ export type {
   SemanticSearchResult,
   SemanticRetrievalFailureReason,
   SemanticRetrievalResponse,
+  EvidenceCitationReference,
+  EvidenceItem,
+  EvidencePack,
 } from "./types";
 
 // Configuration & status
