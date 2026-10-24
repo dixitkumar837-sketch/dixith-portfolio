@@ -276,7 +276,6 @@ export async function retrieveKnowledge(
     // HYBRID (default)
     const provider = new LocalEmbeddingProvider();
     const store = new LocalVectorStore();
-    await store.load();
 
     const hybResponse = await hybridSearch(query.text, {
       provider,

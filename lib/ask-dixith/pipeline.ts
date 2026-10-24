@@ -28,6 +28,7 @@ import {
   buildSourceCitations,
   resolveEvidenceState,
   resolveAnswerStatus,
+  classifyIntent,
 } from "./retrieval";
 import {
   validateProviderAnswer,
@@ -44,6 +45,7 @@ import {
   AskDixithSearchableEntityType,
   AnswerGenerationProvider,
   AskDixithProviderErrorType,
+  GroundedContext,
 } from "../../data/ask-dixith-types";
 
 export interface PipelineOptions extends AskDixithOptions {
@@ -66,13 +68,49 @@ export async function executeAskDixithPipeline(
   const startTime = Date.now();
 
   // ── Step 1: Published-Only Retrieval & Context Assembly ────────────────────
-  const context = await retrieveKnowledge(
-    {
-      text: queryText,
-      retrievalMode: options?.retrievalMode ?? "HYBRID",
-    },
-    options
-  );
+  let context: GroundedContext;
+  const retrievalMode = options?.retrievalMode ?? "HYBRID";
+
+  try {
+    context = await retrieveKnowledge(
+      {
+        text: queryText,
+        retrievalMode,
+      },
+      options
+    );
+  } catch {
+    const retrievalDurationMs = Date.now() - startTime;
+    return {
+      requestId: `ask-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+      query: queryText,
+      intent: classifyIntent(queryText),
+      answer:
+        "A technical retrieval error occurred while accessing published DIXITH knowledge. Please try again or switch retrieval modes.",
+      answerStatus: "RETRIEVAL_ERROR",
+      retrievalMode,
+      sources: [],
+      evidenceState: {
+        hasEmpiricalEvidence: false,
+        researchPublished: false,
+        limitations: ["Retrieval operation encountered a technical error."],
+        quarantinedEvidenceExcluded: false,
+        provenanceSummary: "No published evidence available due to retrieval error.",
+      },
+      limitations: ["Retrieval operation encountered a technical error."],
+      relatedContent: [],
+      generatedAt: new Date().toISOString(),
+      modelProvider: null,
+      modelVersion: null,
+      groundingMetadata: {
+        retrievedEntityIds: [],
+        selectedEntityIds: [],
+        retrievalDurationMs,
+        generationDurationMs: 0,
+        contentVersion: "phase-8m-v1",
+      },
+    };
+  }
 
   const retrievalDurationMs = Date.now() - startTime;
   const answerStatus = resolveAnswerStatus(context);
